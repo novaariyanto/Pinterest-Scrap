@@ -6,7 +6,12 @@ import argparse
 import re
 import os
 from selenium.webdriver.support import ui
+from selenium.webdriver.chrome.service import Service
 import time
+
+service = Service('/Users/mac/Documents/chromedriver')
+service.start()
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--saveto', help='Target CSV to save the Image URLs', action='store', dest='CSVname')
@@ -36,7 +41,7 @@ else:
 	login_pass = str(input('Enter the pinterest password: '))
 
 # Initialize and launch the chrome driver
-driver =  webdriver.Chrome()
+driver =  webdriver.Chrome('/Users/mac/Documents/chromedriver')
 driver.get("https://www.pinterest.com")
 
 driver.implicitly_wait(20)
@@ -84,7 +89,7 @@ while 1 :
     # Here we take divs which have a with href as pin number
     pin_data = page.find_all('div',"Yl- MIw Hb7")
     print(len(pin_data))
-    if len(pin_data) > 800:
+    if len(pin_data) > 30:
         break
 
 

@@ -1,5 +1,5 @@
 import pandas as pd
-import urllib.request
+import urllib as reqest
 import argparse
 from bs4 import *
 from selenium import webdriver
@@ -91,7 +91,7 @@ def get_images_and_tags(url):
     	new_height = driver.execute_script("return document.body.scrollHeight")
     	# print(new_height)
 
-    	if new_height >= 15000:								# increase this scroll height threshould to get more no. of images
+    	if new_height >= 2000:								# increase this scroll height threshould to get more no. of images
     		break
 
     page = driver.page_source
@@ -126,14 +126,15 @@ def download_items(url_set,dest_dir, image_num):
         path = dest_dir + image_num + "/"+ str(index) + ".jpg"
         # print(path)
         try:
-        	urllib.request.urlretrieve(url, path)
-        except :
+        	reqest.urlretrieve(url, path)
+        except Exception as e: 
+            print(e)
             print("An excpetion occured during downloading data \n")
             continue
         # time.sleep(3)
     return
 
-driver =   webdriver.Chrome()
+driver =  webdriver.Chrome('/Users/mac/Documents/chromedriver')
 login(driver, login_name, login_pass)
 
 for i in range(len(urls)):
